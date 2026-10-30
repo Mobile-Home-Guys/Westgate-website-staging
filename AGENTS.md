@@ -4,10 +4,10 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# Country Homes of New Mexico — where things live
+# Westgate Home Center — where things live
 
-This is the manufactured-home dealership site for Country Homes of New
-Mexico, 11500 Central Ave SE, Albuquerque, built on the Hearthline template.
+This is the manufactured-home dealership site for Westgate Home Center,
+4431 NW 13th St, Gainesville, Florida, built on the Hearthline template.
 Almost every change is a data change; routes derive from the data and should
 rarely be edited directly.
 
@@ -47,18 +47,19 @@ lib/land/           Everything behind /land-deals: `areas.ts` prices each
                     above — true of one radius and of no other. STILL THE
                     TEMPLATE'S NORTH FLORIDA DATA, and `landDeals` is off in
                     `lib/page-config.ts` because of it: this dealership
-                    publishes no county-by-county land pricing. Rewrite these
-                    for the Albuquerque radius before turning the page on.
+                    publishes no county-by-county land pricing. Replace these
+                    with the business's own figures before turning the page on.
 lib/skin.ts         Skins: the whole palette, the brand gradient, the
                     typeface pairing, the corner radii and the primary
                     button, as data. Three ship — `hearthline` (warm and
                     editorial, a serif on limestone), `nerto` (white ground,
                     slate type, a blue-to-orange gradient on every primary
                     button, system sans — the look a Mobile Home Manager
-                    deployment wears) and `country`, which is `nerto`
-                    wearing this dealership's own sage and olive, taken from
-                    its live site rather than guessed at. `activeSkin` picks
-                    one — it is `country` — and that one line restyles the
+                    deployment wears), `country` (the previous dealership's
+                    sage and olive) and `westgate`, which is `nerto` wearing
+                    this dealership's own blue and orange, taken from its
+                    live site rather than guessed at. `activeSkin` picks
+                    one — it is `westgate` — and that one line restyles the
                     site.
 app/globals.css     Token structure and the fallback values. A skin
                     overrides whatever it names; edit here to restyle one
@@ -78,17 +79,17 @@ components/landing.tsx
 The catalogue is at `/listings`; `/homes` permanently redirects there. The
 data file is still `lib/homes.ts` — the route was renamed, the file was not.
 
-It holds the ninety homes on the lot, read from the dealership's own
-inventory site at manufacturedcountryhomes.com. `scripts/nmch-catalogue.json`
-is the scrape, `scripts/nmch-selection.json` says which gallery image fills
-which scene, and `scripts/import-nmch.mjs` rebuilds the photography
-(`sheets`, `singles`, `photos`) and the manufacturer plan drawings
-(`plans`) from them. Node's fetch does not read `HTTPS_PROXY` on its own, so
-run it as `NODE_USE_ENV_PROXY=1 node scripts/import-nmch.mjs …`. Thirty-nine
-of the ninety have no photographs at the source; those listings declare no
-scenes and their galleries render as the empty plate, which is correct.
-Prices are the published price BEFORE OPTIONS — the home, not delivery, set
-or site work.
+It holds the homes on Westgate's own site — Live Oak Homes and TownHomes —
+read from westgatehomecenter.com. `scripts/westgate-catalogue.json` is the
+parsed scrape, `scripts/westgate-selection.json` says which gallery image
+fills which scene (and which is the printed plan), and
+`scripts/import-westgate.mjs` rebuilds the catalogue, the contact sheets and
+the photography from them. Node's fetch does not read `HTTPS_PROXY` on its
+own, so run it as `NODE_USE_ENV_PROXY=1 node scripts/import-westgate.mjs …`.
+The dealership publishes NO prices — its pages say to call for current
+pricing — so no listing has one and every home reads "Call for pricing".
+Many homes have no exterior or bedroom photograph at the source; they
+declare only the scenes they have.
 
 Homes are browsed by size first — tiny, single, double, triple. The bucket
 comes from `sections` where the home has one, never from square footage

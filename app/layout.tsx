@@ -65,8 +65,10 @@ export const metadata: Metadata = {
   applicationName: site.name,
   keywords: [
     "manufactured homes",
-    "Albuquerque manufactured homes",
-    "New Mexico mobile homes",
+    "Gainesville manufactured homes",
+    "North Florida mobile homes",
+    "Live Oak Homes",
+    "TownHomes",
     "modular homes",
     "mobile homes",
     "factory-built housing",

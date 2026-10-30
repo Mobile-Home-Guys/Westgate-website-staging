@@ -1,6 +1,7 @@
 /**
  * Import listings from West Gate Home Center's WordPress site.
  *
+ *   node scripts/import-westgate.mjs catalogue # parsed catalogue -> scripts/westgate-catalogue.json
  *   node scripts/import-westgate.mjs sheets   # contact sheets, for scene tagging
  *   node scripts/import-westgate.mjs photos   # download + resize the chosen photos
  *
@@ -78,7 +79,17 @@ export async function catalogue() {
   for (const p of await projects()) {
     const specs = parseTitle(p.title.rendered);
     if (!specs) continue;
-    rows.push({ sourceSlug: p.slug, ...specs, ...assets(p.content.rendered) });
+    /* Homes the dealership has not filed under "Our Homes" (13) or
+       "TownHomes" (17) are not on its public catalogue pages. Leave them out. */
+    const cats = p.project_category ?? [];
+    if (!cats.includes(13) && !cats.includes(17)) continue;
+    rows.push({
+      sourceSlug: p.slug,
+      sourceUrl: p.link,
+      categories: p.class_list.filter((c) => c.startsWith("project_category-")).map((c) => c.slice(17)),
+      ...specs,
+      ...assets(p.content.rendered),
+    });
   }
   return rows;
 }
@@ -126,7 +137,7 @@ async function sheets(offset = 0, only = null) {
   }
 }
 
-/** Download the selected scenes and write them at web size. */
+/** Download the selected scenes (and plan drawings) and write them at web size. */
 async function photos() {
   const rows = await catalogue();
   const manifest = {};
@@ -142,13 +153,43 @@ async function photos() {
         .toFile(out);
       manifest[`${slug}/${kind}`] = `/${path.relative("public", out)}`;
     }
-    console.log(`photos ${slug} (${Object.keys(sel.scenes).length})`);
+    if (sel.plan !== undefined) {
+      await mkdir("public/photos/plans", { recursive: true });
+      await sharp(await fetchBuf(home.images[sel.plan]))
+        .resize(1400, null, { withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toFile(`public/photos/plans/${slug}.webp`);
+    }
+    console.log(`photos ${slug} (${Object.keys(sel.scenes).length}${sel.plan !== undefined ? " + plan" : ""})`);
   }
   await writeFile(".cache/photo-manifest.json", JSON.stringify(manifest, null, 2));
   console.log(`\nmanifest entries written to .cache/photo-manifest.json`);
 }
 
+/** The homepage hero: Key Largo standing on the lot, at 2000px. */
+async function hero() {
+  const rows = await catalogue();
+  const home = rows.find((r) => r.sourceSlug === SELECTION["key-largo"].sourceSlug);
+  await sharp(await fetchBuf(home.images[SELECTION["key-largo"].scenes.exterior]))
+    .resize(2000, null, { withoutEnlargement: true })
+    .jpeg({ quality: 80, mozjpeg: true })
+    .toFile("public/photos/hero-home.jpg");
+  console.log("hero written");
+}
+
+/** Write the parsed catalogue to scripts/westgate-catalogue.json. */
+async function dump() {
+  const rows = await catalogue();
+  await writeFile(
+    new URL("./westgate-catalogue.json", import.meta.url),
+    JSON.stringify(rows, null, 1) + "\n",
+  );
+  console.log(`${rows.length} homes written`);
+}
+
 const cmd = process.argv[2];
 if (cmd === "sheets") await sheets(Number(process.argv[3] ?? 0), process.argv[4]?.split(","));
 else if (cmd === "photos") await photos();
-else console.log("usage: node scripts/import-westgate.mjs sheets|photos");
+else if (cmd === "catalogue") await dump();
+else if (cmd === "hero") await hero();
+else console.log("usage: node scripts/import-westgate.mjs catalogue|sheets|photos|hero");

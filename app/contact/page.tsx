@@ -11,14 +11,14 @@ import { pages } from "@/lib/page-config";
 export const metadata: Metadata = {
   title: "Book a walkthrough",
   description:
-    "Walk the lot at 11500 Central Avenue SE in Albuquerque, six days a week. No appointment needed, but calling ahead means somebody is free to open the homes you came for."
+    "Visit the sales center at 4431 NW 13th Street in Gainesville, six days a week. Calling ahead means somebody is free to open the homes you came for."
 };
 
 const REASONS = [
   {
     icon: Icon.Plan,
     title: "See four homes in an hour",
-    body: "Ninety homes on the lot, several of them open and furnished at any time. Walking them back to back is the fastest way to work out what you actually want.",
+    body: "Walking homes back to back is the fastest way to work out what you actually want. Tell us the models you are curious about and we will have them ready.",
   },
   {
     icon: Icon.Wrench,
@@ -28,7 +28,7 @@ const REASONS = [
   {
     icon: Icon.Shield,
     title: "Bring your parcel number",
-    body: "We'll go through zoning, setbacks and how far the utilities have to come while you're standing there, for Bernalillo, Sandoval, Valencia or Santa Fe county ground.",
+    body: "We'll go through zoning, setbacks and how far the utilities have to come while you're standing there, for the ground you are looking at.",
   },
 ];
 

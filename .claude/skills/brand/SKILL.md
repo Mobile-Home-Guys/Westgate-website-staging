@@ -64,14 +64,15 @@ token list redefined under `.dark`.
 ### Skins
 
 `lib/skin.ts` holds whole looks as data — palette light and dark, the
-typeface pairing, the corner radii and the primary button's colours. Two
+typeface pairing, the corner radii and the primary button's colours. Four
 ship:
 
 | Skin | What it is |
 | --- | --- |
 | `hearthline` | Warm and editorial. Serif display face on limestone paper, ember accent, pill buttons. |
 | `nerto` ("Direct") | White ground, slate type, a blue-to-orange gradient on every primary button, system sans, 12px buttons and 16px cards. The look a Mobile Home Manager deployment wears — the values are that engine's `custom` skin as it resolves them, not an approximation. |
-| `country` | The same shape as `nerto` in Country Homes of New Mexico's own colours: a sage-grey primary running to olive across the gradient. Read off that dealership's live site, not invented. This is the active skin. |
+| `country` | The same shape as `nerto` in Country Homes of New Mexico's own colours: a sage-grey primary running to olive across the gradient. Read off that dealership's live site, not invented. |
+| `westgate` | The same shape as `nerto` in Westgate Home Center's own colours: its link blue (#3690c6) running to its button orange (#f77300) across the gradient. Read off that dealership's live site. This is the active skin. |
 
 Two parts of a skin are optional blocks rather than palette entries, because
 a flat primary and a gradient primary are different design languages rather

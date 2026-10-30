@@ -7,16 +7,13 @@ import { site } from "@/lib/site";
    from a sentence that ends with it. */
 const nameSentence = site.name.replace(/\.$/, "");
 
-/* The towns the dealership lists as its service area, in its own words and
-   its own order. Change it only when the business changes it. */
+/* The one service-area line the dealership publishes, in its own words. */
 const SERVICE_AREA =
-  "NM Manufactured Country Homes offers manufactured home opportunities in the " +
-  "following areas: Albuquerque, Algodones, Bosque Farms, Budaghers, Cedar Crest, " +
-  "Chilili, Corrales, Domingo, Edgewood, Escobosa, Five Points, Golden, Isleta, " +
-  "Kirtland AFB, Los Lunas, Los Padillas, Los Ranchos, Los Ranchos de Albuquerque, " +
-  "Manzano Base, Panorama Heights, Peralta, Placitas, Rancho West, Rio Rancho, " +
-  "San Antonito, Sandia Base, Sandia Park, Sedillo, Tijeras, Univ of New Mexico, " +
-  "UNM, and Village of los Ranchos.";
+  "Westgate Home Center proudly serves North Florida with quality manufactured and " +
+  "modular homes, offering modern floor plans, customizable options, and affordable " +
+  "solutions backed by dependable service and financing support. We pledge to the " +
+  "letter and the spirit of the United States policy for the achievement of equal " +
+  "housing opportunity throughout the Nation.";
 
 const mapQuery = encodeURIComponent(
   `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`,
@@ -79,20 +76,17 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Two things this footer has to say. The service area is the
-            dealership's own list, verbatim from its site. The pricing and
-            imagery note repeats the source's own disclaimer — every price on
-            this site is the home before options, and the manufacturer's
-            photographs may show options that price does not include. */}
+        {/* Two things this footer has to say. The service-area line is the
+            dealership's own, from its site. The pricing and imagery note
+            says the dealership publishes no prices here and that the
+            photographs may show options that are not standard. */}
         <p className="mx-auto mt-6 max-w-3xl text-center leading-relaxed text-muted/80">
           {SERVICE_AREA}
         </p>
         <p className="mx-auto mt-3 max-w-3xl text-center leading-relaxed text-muted/80">
-          Prices shown are before options and cover the home only &mdash; delivery, set,
-          site work and any option added at the order desk are quoted separately. Images
-          are the manufacturer&rsquo;s and may show options not included in the base
-          price. Specifications and availability change; nothing here is an offer to
-          sell.
+          For the most current pricing and specials, call {site.phone}. Images are the
+          manufacturer&rsquo;s and may show options not included in the base price.
+          Specifications and availability change; nothing here is an offer to sell.
         </p>
       </Container>
     </footer>

@@ -140,7 +140,7 @@ are logged to the server console rather than dropped.
 
 The template shipped as Hearthline Home Co. — an invented dealership, with an
 invented founder, an invented set crew and invented warranty terms. All of
-that has been replaced with what Country Homes of New Mexico actually
+that has been replaced with what Westgate Home Center actually
 publishes about itself, and everything it does not publish was deleted rather
 than carried over: there is no founding year, no homes-sold figure, no dealer
 licence number, no warranty term, no transport radius and no deposit
@@ -171,7 +171,7 @@ One thing on `/land-deals` belongs in this list too: the counties, the
 payments and the lot prices on that map are one dealership's market. They are
 not placeholders you can leave in — see the section above. On this site the
 page is switched off in `lib/page-config.ts` and `lib/land/` still holds the
-template's North Florida numbers. Rewrite them for the Albuquerque radius
+template's North Florida numbers. Replace them with the business's own figures
 before you turn it back on.
 
 What does *not* need *correcting*: the HUD Code history, the chattel-versus-

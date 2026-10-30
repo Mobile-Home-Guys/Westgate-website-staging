@@ -24,7 +24,7 @@
  * name here.
  */
 
-export type SkinId = "hearthline" | "nerto" | "country";
+export type SkinId = "hearthline" | "nerto" | "country" | "westgate";
 
 /**
  * Font stacks a skin can choose between. All but `system` are self-hosted by
@@ -410,12 +410,90 @@ export const skins: Record<SkinId, Skin> = {
     fonts: { display: "system", sans: "system", mono: "system" },
     radius: { button: "0.75rem", card: "1rem" },
   },
+  /**
+   * Westgate Home Center, in the blue and orange its live site uses.
+   *
+   * The values are read off westgatehomecenter.com: the link and heading
+   * blue (#3690c6), the deep navy of its menu borders (#145375) and the
+   * orange of its buttons (#f77300). It is `nerto`'s structure again — white
+   * ground, slate type, a gradient on every primary button, the system sans
+   * — wearing those colours, so the design is the template's and only the
+   * palette is the dealership's.
+   *
+   * The original has no dark theme; the block below is this template's own.
+   */
+  westgate: {
+    id: "westgate",
+    name: "Westgate",
+    description:
+      "Westgate blue and orange on a white ground, slate type, the brand gradient on every primary button, set in the system sans.",
+    light: {
+      paper: "#ffffff",
+      surface: "#f8fafc",
+      surface2: "#f1f5f9",
+      ink: "#0f172a",
+      inkSoft: "#334155",
+      muted: "#64748b",
+      line: "#e2e8f0",
+      lineStrong: "#cbd5e1",
+      ember: "#3690c6",
+      emberSoft: "#f77300",
+      emberWash: "#eaf3fa",
+      accent: "#145375",
+      accentSoft: "#3690c6",
+      moss: "#10b981",
+      mossSoft: "#4ade80",
+      sky: "#0ea5e9",
+      gold: "#f59e0b",
+      onEmber: "#ffffff",
+      shadowColor: "15 23 42",
+    },
+    dark: {
+      paper: "#0b141b",
+      surface: "#111c25",
+      surface2: "#18262f",
+      ink: "#e6eef4",
+      inkSoft: "#c5d3de",
+      muted: "#93a5b3",
+      line: "#1f2f3b",
+      lineStrong: "#2f4455",
+      ember: "#5fb0e0",
+      emberSoft: "#ff9a3d",
+      emberWash: "#122633",
+      accent: "#7cc3ea",
+      accentSoft: "#a6d8f2",
+      moss: "#34d399",
+      mossSoft: "#6ee7b7",
+      sky: "#38bdf8",
+      gold: "#fbbf24",
+      onEmber: "#0b141b",
+      shadowColor: "0 0 0",
+    },
+    /* Primary buttons wear the gradient below rather than a flat fill, so
+       these two are only what a plain `bg-[var(--btn-bg)]` falls back to. */
+    button: { bg: "#3690c6", fg: "#ffffff", hoverBg: "#145375", hoverFg: "#ffffff" },
+    buttonDark: { bg: "#5fb0e0", fg: "#0b141b", hoverBg: "#7cc3ea", hoverFg: "#0b141b" },
+    gradient: {
+      gradient: "linear-gradient(135deg, #3690c6 0%, #f77300 100%)",
+      gradientHover: "linear-gradient(135deg, #145375 0%, #d96500 100%)",
+      buttonShadow: "0 10px 25px -5px rgba(54, 144, 198, 0.4)",
+      cardShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+    },
+    gradientDark: {
+      gradient: "linear-gradient(135deg, #5fb0e0 0%, #ff9a3d 100%)",
+      gradientHover: "linear-gradient(135deg, #7cc3ea 0%, #ffb066 100%)",
+      buttonShadow: "0 10px 25px -5px rgba(95, 176, 224, 0.45)",
+      cardShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.5)",
+    },
+    fonts: { display: "system", sans: "system", mono: "system" },
+    radius: { button: "0.75rem", card: "1rem" },
+  },
 };
 
 /**
  * The skin this deployment wears. One line to change the whole look.
  */
-export const activeSkin: SkinId = "country";
+export const activeSkin: SkinId = "westgate";
 
 export const skin = skins[activeSkin];
 

@@ -62,8 +62,8 @@ const TICKER = [
   "Set in one morning",
   "Skirted and tied down",
   "Walk it before you buy it",
-  "Titan Extreme, Redman and Prime",
-  "Ninety homes on the lot",
+  "Live Oak Homes and TownHomes",
+  "Serving North Florida since 1961",
 ];
 
 /**
@@ -111,7 +111,7 @@ const MYTHS = [
   },
   {
     myth: "“They all look the same.”",
-    fact: "Scroll up. Or down. That's ninety homes, from a 14-foot single section at 747 square feet to a 32-foot double at 2,305, and the elevations are the least of what separates them.",
+    fact: "Scroll up. Or down. That's ninety-odd homes, from a 728-square-foot two-bedroom to a 2,692-square-foot four-bedroom, and the elevations are the least of what separates them.",
   },
 ];
 
@@ -128,8 +128,8 @@ const STEPS = [
     body: "We put the right plan against the right financing for your situation, and price the site work honestly.",
   },
   {
-    title: "We handle setup and delivery",
-    body: "Permits, transport, the set, the connections and the skirting. You get keys.",
+    title: "We plan delivery and setup with you",
+    body: "Before you commit we go through delivery, setup and the ground it is going on, so nothing about the site is a surprise. Then you get keys.",
   },
 ];
 
@@ -194,7 +194,7 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
           <div className="absolute inset-0 -z-10">
             <Image
               src={heroPhoto}
-              alt="A double-section home standing on piers on the lot at 11500 Central Avenue SE, front elevation with a gabled entry and white-trimmed windows."
+              alt="A manufactured home with a covered front porch and white railings, standing on the lot in Gainesville, Florida."
               fill
               preload
               quality={90}
@@ -221,9 +221,9 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
                 </h1>
 
                 <p className="mx-auto mb-8 max-w-xl text-lg text-white/85 md:mx-0 md:text-xl">
-                  We turn your land into home sweet home. Ninety single- and
-                  double-section homes on the lot, every one priced before options,
-                  with financing, delivery and setup handled for you.
+                  Discover the Westgate Difference. Live Oak Homes and TownHomes
+                  at factory-direct prices — singlewides, doublewides and triplewides
+                  in stock, plus land and home packages.
                 </p>
 
                 <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row md:justify-start">
@@ -311,9 +311,9 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
               Imagine pulling into a home like this every day
             </h2>
             <p className="max-w-2xl text-lg text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.3)] md:text-xl">
-              We help families in {site.address.city}, {site.address.region} get
-              beautiful manufactured homes on land, with financing, delivery and
-              setup handled for you.
+              We have helped families in {site.address.city}, {site.address.region} into
+              manufactured and modular homes since 1961, with land and home
+              packages and financing support.
             </p>
           </div>
 
@@ -435,7 +435,7 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
               </h2>
               <p className="mx-auto max-w-2xl text-lg text-muted">
                 {listingsLede ??
-                  `Find the right home for your family. Filter by size and features — every one of them is standing on the lot in ${site.address.city}.`}
+                  `Find the right home for your family. Filter by size and features, then call ${site.phone} for current pricing.`}
               </p>
             </div>
 

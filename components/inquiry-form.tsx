@@ -145,7 +145,7 @@ export function InquiryForm({
             name="phone"
             type="tel"
             autoComplete="tel"
-            placeholder="(505) 555-0100"
+            placeholder="(352) 555-0100"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "err-phone" : undefined}
             className={cx(field, "mt-2.5", errors.phone && "border-ember")}
