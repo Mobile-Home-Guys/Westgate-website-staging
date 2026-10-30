@@ -125,12 +125,12 @@ export type OptionalPage =
  */
 export const pages: Record<OptionalPage, boolean> = {
   listings: true,
-  /** Off: this dealership places homes on the buyer's own ground and names
-      no communities it works with, so `lib/communities.ts` is empty. */
+  /** Off: this dealership names no communities it places homes into, so
+      `lib/communities.ts` is empty. */
   communities: false,
   /** Off: the map prices land county by county, and those figures are market
       data this dealership does not publish. Turning it on means writing
-      `lib/land/areas.ts` for the Albuquerque radius first — see the
+      `lib/land/areas.ts` for the Gainesville radius first — see the
       `land-deals` skill — not leaving another market's numbers on it. */
   landDeals: false,
   startHere: true,

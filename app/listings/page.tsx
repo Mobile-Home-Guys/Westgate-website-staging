@@ -13,7 +13,7 @@ import { pages } from "@/lib/page-config";
 export const metadata: Metadata = {
   title: "Homes for sale",
   description:
-    "Every home on the lot at 11500 Central Avenue SE in Albuquerque — ninety of them across Titan Extreme, Redman and Prime, with specs, model codes, prices before options and the source page each one was read from.",
+    "Every Live Oak Homes and TownHomes model Westgate Home Center sells in Gainesville, Florida — bedrooms, baths, square footage and photographs for each. Call for current pricing and specials.",
 };
 
 /** Rendered into the initial HTML while the filter UI hydrates. */
@@ -48,7 +48,7 @@ export default function HomesPage() {
         lede={
           hasPrices
             ? `Full specs, honest status. From ${money(priceBounds.min)} to ${money(priceBounds.max)}, and you can walk most of them this week.`
-            : `Ninety homes, single-section to 32 feet wide. Every price shown is the home before options; delivery, set and site work are quoted on top of it — and you can walk these on the lot this week.`
+            : `${listings.length} models, from singlewides to triplewides. We do not print prices here — call ${site.phone} for the most current pricing and specials — and you can walk these on the lot this week.`
         }
         kind="exterior"
         breadcrumb={[

@@ -28,7 +28,20 @@ export type Promotion = {
   listingSlugs?: string[];
 };
 
-export const promotions: Promotion[] = [];
+export const promotions: Promotion[] = [
+  /* Westgate's own Specials page: "This Month's Special — up to $6,000 off
+     select models." It names no end date, so none is invented; the offer
+     stays up until somebody takes it down. Check it against
+     westgatehomecenter.com/specials each month. */
+  {
+    slug: "monthly-special",
+    kicker: "This month's special",
+    headline: "Up to $6,000 off select models.",
+    body: "Quality homes at special pricing for a limited time. Call (352) 378-2453 or stop by the sales center for which models qualify.",
+    ctaText: "Call for details",
+    href: "tel:+13523782453",
+  },
+];
 
 const startOfToday = () => new Date(new Date().toDateString());
 

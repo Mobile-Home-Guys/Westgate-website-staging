@@ -123,7 +123,7 @@ export function PrequalifyPanel({ className }: { className?: string }) {
               <Icon.Shield className="size-6" />
             </span>
             <p className="max-w-xs text-sm leading-relaxed text-muted">
-              Soft check only — answering these questions will not affect your credit score.
+              Fill it in at home and bring it by the sales center, or call us first with any questions.
             </p>
             <a
               href={prequalify.externalApplicationLink}

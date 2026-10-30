@@ -59,15 +59,15 @@ is deliberately different on mobile and desktop — see the comment above it
 before changing `object-position`.
 
 **Re-import this dealership's photography.** The catalogue was read from
-manufacturedcountryhomes.com and `scripts/import-nmch.mjs` rebuilds it:
-`sheets` and `singles` build numbered contact sheets so scenes can be tagged
-by eye, `photos` downloads whatever `scripts/nmch-selection.json` names and
-writes it web-sized, and `plans` fetches the manufacturer plan drawings into
-`public/photos/plans/`. Node's fetch ignores `HTTPS_PROXY`, so run it as
-`NODE_USE_ENV_PROXY=1 node scripts/import-nmch.mjs <command>`. Thirty-nine
-homes have no photographs at the source and are absent from `lib/photos.ts`
-on purpose — their galleries are the empty plate until somebody photographs
-them on the lot.
+westgatehomecenter.com and `scripts/import-westgate.mjs` rebuilds it:
+`catalogue` re-parses the site into `scripts/westgate-catalogue.json`,
+`sheets` builds numbered contact sheets so scenes can be tagged by eye,
+`photos` downloads whatever `scripts/westgate-selection.json` names (scenes
+and the printed plan, under `public/photos/plans/`), and `hero` rewrites the
+homepage hero. Node's fetch ignores `HTTPS_PROXY`, so run it as
+`NODE_USE_ENV_PROXY=1 node scripts/import-westgate.mjs <command>`. A home
+appears in `lib/photos.ts` only for the scenes the source actually shows —
+the rest are the empty plate until somebody photographs them on the lot.
 
 **Import a manufacturer's photography.** Every listing carries the
 `sourceUrl` it was read from, so `node scripts/import-clayton.mjs sheets`

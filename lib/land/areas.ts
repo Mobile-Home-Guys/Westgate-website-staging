@@ -12,13 +12,13 @@ import { milesFromHQ } from "./geo";
  *  the boundaries — see `scripts/generate-county-shapes.py`. Do not leave one
  *  market's counties on another market's site.
  *
- *  ON THIS DEPLOYMENT THAT IS EXACTLY WHY THE PAGE IS OFF. Country Homes of
- *  New Mexico sells out of Albuquerque and publishes no county-by-county land
- *  pricing at all, so `landDeals` is `false` in `lib/page-config.ts` and the
- *  route redirects to `/`. Everything below is still Florida. Before turning
- *  the page on: move `HQ` to 11500 Central Ave SE, regenerate the county
- *  shapes for Bernalillo, Sandoval, Valencia, Santa Fe and Torrance, and get
- *  real starting payments and lot-price ranges from the business. Do not
+ *  ON THIS DEPLOYMENT THE PAGE IS OFF. The geography here is the right
+ *  market — North Florida, drawn from Gainesville — but Westgate Home Center
+ *  publishes no county-by-county land pricing or starting payments, and the
+ *  figures below are the template's own. `landDeals` is therefore `false` in
+ *  `lib/page-config.ts` and the route redirects to `/`. Before turning the
+ *  page on, check `HQ` in `./geo.ts` against the lot at 4431 NW 13th St and
+ *  get real starting payments and lot-price ranges from the business. Do not
  *  estimate them.
  *
  *  `startingPayment`  estimated monthly payment on a land + home package, i.e.

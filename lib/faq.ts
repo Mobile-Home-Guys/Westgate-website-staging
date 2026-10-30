@@ -2,10 +2,12 @@
  * The questions buyers actually ask, and the answers this dealership stands
  * behind.
  *
- * These are written for Country Homes of New Mexico and for central New
- * Mexico: Wind Zone I, Thermal Zone 2, MVD title deactivation, and prices
- * quoted before options. Do not carry them to another market unchanged —
- * see `lib/market.ts` for what is market-specific here.
+ * These are written for Westgate Home Center in Gainesville and make no
+ * claim that holds only for one county: wind zone, snow load and titling
+ * are state and county business, so the answers send the buyer to the
+ * home's data plate and to us rather than quoting a zone this dealership
+ * has not published. Prices are not published on this site — call for
+ * current pricing and specials.
  *
  * They live here rather than in a page because two routes render them: the
  * `/faq` page in full, and the FAQ band at the foot of `/why-manufactured`.
@@ -17,8 +19,7 @@
  * `lib/page-config.ts`, the route with it.
  *
  * Everything below is a claim about how these homes are built, financed and
- * titled. Check it against your own market before you ship it — wind zone,
- * snow load and titling are all state and county business.
+ * titled. Check it against your own market before you ship it.
  */
 
 export type FaqItem = {
@@ -50,33 +51,33 @@ export const faq: FaqItem[] = [
   {
     question: "What about wind, snow and earthquakes?",
     answer: [
-      "Every home is certified to a wind zone, a roof-load zone and a thermal zone, all printed on the data plate inside the kitchen cabinet. New Mexico is Wind Zone I and Thermal Zone 2 under the HUD Code, so a home built for this market is engineered to the inland wind standard and the middle insulation requirement. Roof load is the one that varies here: a home going up at Sandia Park or Cedar Crest is carrying snow that a home in the valley never sees, so ask which roof-load zone a particular home is certified to before you commit it to the mountains.",
+      "Every home is certified to a wind zone, a roof-load zone and a thermal zone, all printed on the data plate inside the kitchen cabinet. Which zone applies depends on where the home is going to stand, so ask us which zones a particular home is certified to before you commit it to a parcel — a home built for one zone is not automatically right for another.",
       "Anchoring is engineered and torque-tested, and it matters more than any of the above. A properly anchored home on engineered piers performs comparably to a site-built house on a stem wall; the failures people remember are almost always homes that were never tied down correctly.",
     ],
   },
   {
     question: "Can I put one on my own land?",
     answer: [
-      "Usually — it is what most of our buyers are doing. The constraints are zoning (Bernalillo, Sandoval, Valencia and Santa Fe counties each handle manufactured housing differently by district), any minimum square footage or roof-pitch covenant on the parcel, physical access for a load up to 16 feet wide on a single section and half a double at a time, and utilities. Call us with the parcel and we will go through it with you before you spend anything.",
+      "Usually — and we offer land and home packages for exactly that: if you have found the perfect piece of land, we can package it into the home deal. The constraints are zoning (each county handles manufactured housing differently by district), any minimum square footage or roof-pitch covenant on the parcel, physical access for the load, and utilities. Call us with the parcel and we will go through it with you before you spend anything.",
     ],
   },
   {
     question: "Will my neighbours be able to tell?",
     answer: [
-      "With a permanent foundation, a continuous perimeter, a site-built porch and a conventional roof pitch — generally not, from the street. Several of the double-section homes on the lot are built for exactly that, and the difference between one of those and the same plan set on blocks with vinyl skirting is mostly what you spend on the ground under it. Whether it matters to you is a personal question, and a completely reasonable one.",
+      "With a permanent foundation, a continuous perimeter, a site-built porch and a conventional roof pitch — generally not, from the street. The TownHomes and the upgraded Live Oak plans are built for exactly that, and the difference between one of those and the same plan set on blocks with vinyl skirting is mostly what you spend on the ground under it. Whether it matters to you is a personal question, and a completely reasonable one.",
     ],
   },
   {
     question: "What does the price on a listing actually include?",
     answer: [
-      "The home, before options. That is how the manufacturer states it and it is how we show it, so the number you see on a listing is the house itself and not a package somebody built around it.",
-      "Delivery, the set, site work — pad, drive, well, septic, power run — and anything added at the order desk are quoted on top of that. Site work is the one number that genuinely cannot be guessed from a distance, which is why we quote it against your actual ground rather than printing an average.",
+      "We do not print prices on this site, because the right number depends on the model, the options and the ground it is going on. Call (352) 378-2453 for the current pricing and specials on any home, and we will tell you what the number covers.",
+      "Delivery, the set, site work — pad, drive, well, septic, power run — and anything added at the order desk are separate lines, and we quote them against your actual ground rather than quoting an average.",
     ],
   },
   {
     question: "How long from signing to keys?",
     answer: [
-      "It depends on whether the home has to be built. A home already standing on the lot is a matter of weeks once the ground is ready — which is most of the reason we keep ninety of them there — while one ordered from the plant runs to a plant schedule we will give you in writing before you sign. Site work and trim-out sit either side of whichever it is. Ask for the dates on the specific home rather than a rule of thumb.",
+      "It depends on whether the home has to be built. A home already in stock is a matter of weeks once the ground is ready, while one ordered from the factory runs to a factory schedule we will give you in writing before you sign. Site work and trim-out sit either side of whichever it is. Ask for the dates on the specific home rather than a rule of thumb.",
     ],
   },
 ];

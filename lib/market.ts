@@ -42,21 +42,12 @@ export type Market = {
 };
 
 export const market: Market = {
-  regionName: "Central New Mexico",
-  /* The counties containing the towns the dealership lists as its service
-     area — Albuquerque, Rio Rancho, Corrales, Placitas and Algodones; Los
-     Lunas, Bosque Farms and Peralta; Tijeras, Cedar Crest, Sandia Park,
-     Sedillo, Chilili and Escobosa; Edgewood and Golden. */
-  countiesServed: ["Bernalillo", "Sandoval", "Valencia", "Santa Fe"],
-  /* New Mexico is Wind Zone I everywhere and Thermal Zone 2 under the HUD
-     Code, so a home built for this market is engineered to the inland wind
-     standard and the middle insulation requirement. */
-  windZone: "I",
-  thermalZone: 2,
-  realPropertyConversion:
-    "New Mexico does not record an affidavit — it retires the paperwork instead. MVD deactivates the manufactured home's title once every lien on it has been released and the county assessor certifies that the home will be taxed as real property from then on, and after that the house is part of the land it stands on.",
-  usdaNote:
-    "USDA Rural Development draws its line around the Albuquerque urbanized area rather than around the county, so ground in Valencia, Torrance and eastern Sandoval can qualify while a parcel a few miles closer in does not. Check the eligibility map against the actual parcel before you assume either way, and note that it applies to land you own rather than a leased pad.",
+  regionName: "North Florida",
+  /* The dealership publishes its market as "North Florida" and names no
+     counties, wind zone, titling procedure or USDA boundary, so none is
+     claimed here — the copy that reads them falls back to a portable
+     sentence. Add them from a source when the business or its state
+     publishes them. */
 };
 
 /** "Blount, Knox and Loudon" — for prose that lists the service area. */

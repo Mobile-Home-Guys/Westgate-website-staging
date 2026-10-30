@@ -13,7 +13,7 @@ import { prequalify } from "@/lib/prequalify";
 export const metadata: Metadata = {
   title: "Financing",
   description:
-    "What a manufactured home purchase costs to finance in Albuquerque, how to get pre-qualified in seconds, and the paperwork order that keeps a purchase from going sideways.",
+    "What a manufactured home purchase costs to finance in Gainesville and North Florida, how to start a credit application, and the paperwork order that keeps a purchase from going sideways.",
 };
 
 const ORDER = [

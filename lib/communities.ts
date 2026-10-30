@@ -30,11 +30,10 @@ export type Community = {
  *
  * Empty, on purpose.
  *
- * Country Homes of New Mexico sells homes onto the buyer's own ground —
- * "we turn your land into home sweet home" is the headline — and it names
- * no manufactured-home community it places into or has an arrangement
- * with. Listing one anyway would be a claim about somebody else's property
- * as well as about this business, so there is nothing here and
+ * Westgate Home Center offers land and home packages and names no
+ * manufactured-home community it places into or has an arrangement with.
+ * Listing one anyway would be a claim about somebody else's property as
+ * well as about this business, so there is nothing here and
  * `communities` is switched off in `lib/page-config.ts` to match.
  *
  * If the dealership does start placing homes into named communities, add
