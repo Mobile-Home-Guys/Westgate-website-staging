@@ -45,6 +45,7 @@ import { communities } from "@/lib/communities";
 import { company } from "@/lib/company";
 import { featuredListings, listings } from "@/lib/homes";
 import { pages, sections, videoShowcase, type LandingSection } from "@/lib/page-config";
+import { LAND_HOME_STEPS as STEPS } from "@/lib/land-home-package";
 import { featuredPromotion } from "@/lib/promotions";
 import { site } from "@/lib/site";
 import heroPhoto from "@/public/photos/hero-home.jpg";
@@ -112,25 +113,6 @@ const MYTHS = [
   {
     myth: "“They all look the same.”",
     fact: "Scroll up. Or down. That's ninety-odd homes, from a 728-square-foot two-bedroom to a 2,692-square-foot four-bedroom, and the elevations are the least of what separates them.",
-  },
-];
-
-/* Three steps, because a stranger deciding whether to ring reads three and
-   skims five. These are the dealership's own — the sheet Westgate hands a
-   buyer asking how its land and home package works — so they describe what
-   this office actually does, not a template's generic process. */
-const STEPS = [
-  {
-    title: "Find your land",
-    body: "Look with a realtor (we can refer one who can help), browse listings online on sites like LandWatch.com, or buy from a private seller.",
-  },
-  {
-    title: "Get prequalified",
-    body: "Get prequalified with a lender approved for manufactured home construction loans. We have several options in our office to help with this.",
-  },
-  {
-    title: "Pick out your new home",
-    body: "We take your approval and the land you've chosen, and roll everything you need to move in (well, septic, power and permits) into one land and home package.",
   },
 ];
 
@@ -422,6 +404,15 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
                 </Reveal>
               ))}
             </ol>
+
+            {pages.landHomePackage && (
+              <div className="mt-10 flex justify-center">
+                <ButtonLink href="/land-home-package" variant="outline">
+                  More about land and home packages
+                  <Icon.Arrow className="size-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                </ButtonLink>
+              </div>
+            )}
           </Container>
         </section>
       ),

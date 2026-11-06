@@ -113,7 +113,8 @@ export type OptionalPage =
   | "promotions"
   | "prequalify"
   | "buildAHome"
-  | "address";
+  | "address"
+  | "landHomePackage";
 
 /**
  * Standalone routes. A `false` here makes the route redirect to `/` and drops
@@ -147,6 +148,10 @@ export const pages: Record<OptionalPage, boolean> = {
   prequalify: true,
   buildAHome: true,
   address: true,
+  /** `/land-home-package`: a standalone page to send to leads, built on the
+      dealership's own three-step sheet. Not in the header; linked from the
+      "How it works" band on `/`. */
+  landHomePackage: true,
 };
 
 /**
