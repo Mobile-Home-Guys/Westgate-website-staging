@@ -22,6 +22,7 @@ const STATIC_ROUTES: { path: string; priority: number; page?: OptionalPage }[] =
   { path: "/faq", priority: 0.7, page: "faq" },
   { path: "/blog", priority: 0.6, page: "blog" },
   { path: "/promotions", priority: 0.6, page: "promotions" },
+  { path: "/land-home-package", priority: 0.8, page: "landHomePackage" },
   { path: "/address", priority: 0.6, page: "address" },
   { path: "/about", priority: 0.6, page: "about" },
   { path: "/contact", priority: 0.6, page: "contact" },

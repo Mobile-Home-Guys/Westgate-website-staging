@@ -1,0 +1,192 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import { ContactBand } from "@/components/contact-band";
+import { ListingCard } from "@/components/listing-card";
+import { LocationHours } from "@/components/location-hours";
+import { Reveal } from "@/components/reveal";
+import { ButtonLink, Container, Icon } from "@/components/ui";
+import { featuredListings, listings } from "@/lib/homes";
+import { LAND_HOME_INCLUDED, LAND_HOME_STEPS } from "@/lib/land-home-package";
+import { pages } from "@/lib/page-config";
+import { site } from "@/lib/site";
+import heroPhoto from "@/public/photos/hero-home.jpg";
+
+const description = `How the ${site.name} land and home package works: find your land, get prequalified, pick out your home. Well, septic, power and permits rolled into one package.`;
+
+export const metadata: Metadata = {
+  title: "Land and home packages",
+  description,
+  alternates: { canonical: "/land-home-package" },
+  openGraph: {
+    title: `Land and home packages | ${site.name}`,
+    description,
+    url: "/land-home-package",
+  },
+};
+
+/**
+ * A page made to be sent: a text, an email, an ad. One idea — the land and
+ * home package in three steps — then homes, then the form and the phone.
+ * The steps are `lib/land-home-package.ts`, shared with the band on `/`.
+ */
+export default function LandHomePackagePage() {
+  if (!pages.landHomePackage) redirect("/");
+  const homes = featuredListings().slice(0, 4);
+
+  return (
+    <>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={heroPhoto}
+            alt="A manufactured home with a covered front porch and white railings, standing on the lot in Gainesville, Florida."
+            fill
+            preload
+            quality={90}
+            sizes="100vw"
+            placeholder="blur"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.72)_100%)]" />
+        </div>
+
+        <Container className="py-16 text-center md:py-24">
+          <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+            <Icon.Pin className="size-4 shrink-0" />
+            {site.name} &middot; {site.address.city}, {site.address.region}
+          </p>
+          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+            Your land and your new home, in one package
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/85 md:text-xl">
+            Three simple steps. We roll the well, septic, power and permits in
+            with your home, so there is one package to finance.
+          </p>
+          <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
+            <a
+              href="#get-started"
+              className="group/btn flex items-center justify-center gap-2 rounded-xl bg-[image:var(--gradient)] px-8 py-4 text-lg font-semibold text-white shadow-[var(--button-shadow)] transition-all duration-300 hover:scale-105 hover:bg-[image:var(--gradient-hover)]"
+            >
+              Get started
+              <Icon.Arrow className="size-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </a>
+            <a
+              href={site.phoneHref}
+              className="flex items-center justify-center gap-2 rounded-xl border-2 border-white bg-white/10 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-white hover:text-ink"
+              aria-label={`Call ${site.name} on ${site.phone}`}
+            >
+              <Icon.Phone className="size-5 shrink-0" />
+              {site.phone}
+            </a>
+          </div>
+        </Container>
+      </section>
+
+      <section id="how-it-works" className="bg-paper">
+        <Container className="py-14 md:py-20">
+          <div className="mb-10 text-center">
+            <h2 className="mb-3 text-3xl font-bold text-ink md:text-4xl">
+              How the land and home package works
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-muted">
+              From finding your land to moving into your new home.
+            </p>
+          </div>
+
+          <ol className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            {LAND_HOME_STEPS.map((step, i) => (
+              <Reveal
+                key={step.title}
+                delay={i * 90}
+                as="li"
+                className="flex flex-col items-center rounded-2xl border border-line bg-surface p-6 text-center md:p-8"
+              >
+                <span className="mb-4 flex size-14 items-center justify-center rounded-full bg-[image:var(--gradient)] text-lg font-bold text-white shadow-[var(--button-shadow)]">
+                  {i + 1}
+                </span>
+                <h3 className="mb-2 text-xl font-semibold text-ink">{step.title}</h3>
+                <p className="text-[0.95rem] leading-relaxed text-muted">{step.body}</p>
+              </Reveal>
+            ))}
+          </ol>
+
+          <div className="mt-12 rounded-2xl bg-surface p-6 text-center md:p-8">
+            <p className="text-lg font-semibold text-ink">Rolled into your package</p>
+            <ul className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-3">
+              {LAND_HOME_INCLUDED.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-ink-soft">
+                  <Icon.Check className="size-5 shrink-0 text-moss" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
+      </section>
+
+      {pages.listings && homes.length > 0 && (
+        <section className="bg-surface">
+          <Container className="py-14 md:py-20">
+            <div className="mb-8 text-center">
+              <h2 className="mb-3 text-3xl font-bold text-ink md:text-4xl">Pick out your new home</h2>
+              <p className="mx-auto max-w-2xl text-lg text-muted">
+                A few of our homes. Call {site.phone} for current pricing.
+              </p>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {homes.map((listing, i) => (
+                <Reveal key={listing.slug} delay={i * 90}>
+                  <ListingCard listing={listing} className="h-full" />
+                </Reveal>
+              ))}
+            </div>
+            <div className="mt-8 flex justify-center">
+              <ButtonLink href="/listings" variant="outline">
+                See all {listings.length} homes
+                <Icon.Arrow className="size-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+              </ButtonLink>
+            </div>
+          </Container>
+        </section>
+      )}
+
+      <section id="get-started" className="scroll-mt-24 bg-paper">
+        <Container className="py-16 md:py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-bold text-ink md:text-4xl">
+                Ready to{" "}
+                <span className="bg-[image:var(--gradient)] bg-clip-text text-transparent">
+                  get started?
+                </span>
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+                Whether you have land picked out or are still looking, tell us
+                where you are and we will walk you through the next step, from a
+                realtor referral to prequalifying with a lender.
+              </p>
+              <a
+                href={site.phoneHref}
+                className="mt-8 flex items-center gap-4 text-ink transition-opacity hover:opacity-80"
+              >
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ember-wash text-ember">
+                  <Icon.Phone className="size-5" />
+                </span>
+                <span>
+                  <span className="block text-sm text-muted">Call us directly</span>
+                  <span className="block text-xl font-bold">{site.phone}</span>
+                </span>
+              </a>
+            </div>
+            <div className="rounded-2xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] md:p-8">
+              <ContactBand source="land-home-package" />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <LocationHours />
+    </>
+  );
+}

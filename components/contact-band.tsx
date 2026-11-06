@@ -5,6 +5,7 @@ import { requestPreApproval } from "@/app/land-deals/actions";
 import { EMPTY_LEAD_STATE } from "@/lib/land/lead";
 import { cx, Icon } from "./ui";
 import { site } from "@/lib/site";
+import type { LeadSource } from "@/lib/land/lead";
 
 const BUDGETS = [
   { value: "", label: "Select a range" },
@@ -29,7 +30,7 @@ const BUDGETS = [
  * The promise under the heading is the only thing here a business has to
  * keep, so it is one sentence and it is a day, not an hour.
  */
-export function ContactBand() {
+export function ContactBand({ source = "landing-contact" }: { source?: LeadSource }) {
   const [state, action, pending] = useActionState(requestPreApproval, EMPTY_LEAD_STATE);
   const err = state.fieldErrors ?? {};
   const was = state.values ?? {};
@@ -58,7 +59,7 @@ export function ContactBand() {
 
   return (
     <form action={action} className="space-y-4">
-      <input type="hidden" name="source" value="landing-contact" />
+      <input type="hidden" name="source" value={source} />
 
       {/* Honeypot: real people leave this empty. */}
       <input
