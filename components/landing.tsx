@@ -116,20 +116,21 @@ const MYTHS = [
 ];
 
 /* Three steps, because a stranger deciding whether to ring reads three and
-   skims five. The long version — plant inspections, transport, the set — is
-   `/why-manufactured`, which is where somebody who wants it goes. */
+   skims five. These are the dealership's own — the sheet Westgate hands a
+   buyer asking how its land and home package works — so they describe what
+   this office actually does, not a template's generic process. */
 const STEPS = [
   {
-    title: "Tell us your situation",
-    body: "A few details about what you need, roughly what you can spend, and where you want to live.",
+    title: "Find your land",
+    body: "Look with a realtor (we can refer one who can help), browse listings online on sites like LandWatch.com, or buy from a private seller.",
   },
   {
-    title: "We match home and plan",
-    body: "We put the right plan against the right financing for your situation, and price the site work honestly.",
+    title: "Get prequalified",
+    body: "Get prequalified with a lender approved for manufactured home construction loans. We have several options in our office to help with this.",
   },
   {
-    title: "We plan delivery and setup with you",
-    body: "Before you commit we go through delivery, setup and the ground it is going on, so nothing about the site is a surprise. Then you get keys.",
+    title: "Pick out your new home",
+    body: "We take your approval and the land you've chosen, and roll everything you need to move in (well, septic, power and permits) into one land and home package.",
   },
 ];
 
@@ -397,9 +398,11 @@ export function Landing({ listingSeries, listingsHeadline, listingsLede }: Landi
         <section id="how-it-works" className="relative w-full bg-paper">
           <Container className="py-12 md:py-16">
             <div className="mb-10 text-center">
-              <h2 className="mb-3 text-3xl font-bold text-ink md:text-4xl">How it works</h2>
+              <h2 className="mb-3 text-3xl font-bold text-ink md:text-4xl">
+                How our land and home package works
+              </h2>
               <p className="mx-auto max-w-2xl text-lg text-muted">
-                Three simple steps to get into your new home.
+                Three simple steps from finding your land to moving into your new home.
               </p>
             </div>
 
