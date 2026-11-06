@@ -25,6 +25,54 @@ export const metadata: Metadata = {
   },
 };
 
+/* Why bother with land at all, in three lines a buyer can repeat to their
+   family. Each is true by definition of owning the ground or is the
+   dealership's own sheet — no figures, nothing to check. */
+const WHY = [
+  {
+    icon: Icon.Pin,
+    title: "Your land, your rules",
+    body: "No lot rent. The ground under your home is yours, not a landlord's.",
+  },
+  {
+    icon: Icon.Wrench,
+    title: "Move-in ready",
+    body: "Well, septic, power and permits rolled into the package, not left for you to chase.",
+  },
+  {
+    icon: Icon.House,
+    title: `${listings.length} homes to choose from`,
+    body: "Single, double and triple section Live Oak Homes and TownHomes.",
+  },
+];
+
+/* The three routes onto land from the dealership's sheet. */
+const LAND_WAYS: {
+  icon: (typeof Icon)[keyof typeof Icon];
+  title: string;
+  body: string;
+  href?: string;
+  cta?: string;
+}[] = [
+  {
+    icon: Icon.Chat,
+    title: "Work with a realtor",
+    body: "Don't have one? We can refer a realtor who can help you find the right piece of land.",
+  },
+  {
+    icon: Icon.Grid,
+    title: "Search online",
+    body: "Browse land for sale on sites like LandWatch.com, from your couch.",
+    href: "https://www.landwatch.com/",
+    cta: "Browse LandWatch.com",
+  },
+  {
+    icon: Icon.Tag,
+    title: "Buy from a private seller",
+    body: "Spotted a for-sale-by-owner sign? A private seller works too.",
+  },
+];
+
 /**
  * A page made to be sent: a text, an email, an ad. One idea — the land and
  * home package in three steps — then homes, then the form and the phone.
@@ -57,11 +105,12 @@ export default function LandHomePackagePage() {
             {site.name} &middot; {site.address.city}, {site.address.region}
           </p>
           <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
-            Your land and your new home, in one package
+            Your own land. Your new home. <span className="text-[#fdba74]">One package.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/85 md:text-xl">
-            Three simple steps. We roll the well, septic, power and permits in
-            with your home, so there is one package to finance.
+            No land yet? That&apos;s step one, not a dealbreaker. We&apos;ll help
+            you find it, then roll the well, septic, power and permits in with
+            your new home.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
             <a
@@ -83,8 +132,86 @@ export default function LandHomePackagePage() {
         </Container>
       </section>
 
-      <section id="how-it-works" className="bg-paper">
+      <section id="why" className="bg-paper">
+        <Container className="pt-14 md:pt-20">
+          <ul className="grid gap-4 sm:grid-cols-3">
+            {WHY.map((w, i) => (
+              <Reveal
+                key={w.title}
+                delay={i * 90}
+                as="li"
+                className="flex items-start gap-4 rounded-2xl border border-line bg-surface p-6"
+              >
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ember-wash text-ember">
+                  <w.icon className="size-5" />
+                </span>
+                <div>
+                  <p className="font-semibold text-ink">{w.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">{w.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <section id="find-land" className="bg-paper">
         <Container className="py-14 md:py-20">
+          <div className="relative isolate overflow-hidden rounded-[1.5rem] bg-[image:var(--gradient)] p-8 text-white shadow-[var(--button-shadow)] sm:p-12">
+            {/* The dark theme lightens the gradient for buttons; under a whole
+                panel of white text that is too pale, so pull it back down. */}
+            <div className="absolute inset-0 -z-10 hidden bg-black/45 dark:block" aria-hidden />
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/80">
+                  The hard part, made easier
+                </p>
+                <h2 className="mt-3 text-3xl font-bold leading-tight md:text-4xl">
+                  Finding land is the hard part. You don&apos;t have to do it alone.
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-white/90">
+                  Three ways to find your spot. Pick whichever suits you, and call
+                  us the moment you find one you like.
+                </p>
+                <a
+                  href={site.phoneHref}
+                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-[#0f172a] transition-transform duration-300 hover:scale-105"
+                >
+                  <Icon.Phone className="size-5" />
+                  Ask for a realtor referral
+                </a>
+              </div>
+              <ul className="grid gap-3">
+                {LAND_WAYS.map((way) => (
+                  <li key={way.title} className="flex gap-4 rounded-2xl bg-white/12 p-5 backdrop-blur-sm">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/20">
+                      <way.icon className="size-5" />
+                    </span>
+                    <div>
+                      <p className="font-semibold">{way.title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-white/85">{way.body}</p>
+                      {way.href && (
+                        <a
+                          href={way.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-4"
+                        >
+                          {way.cta}
+                          <Icon.External className="size-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section id="how-it-works" className="bg-paper">
+        <Container className="pb-14 md:pb-20">
           <div className="mb-10 text-center">
             <h2 className="mb-3 text-3xl font-bold text-ink md:text-4xl">
               How the land and home package works
