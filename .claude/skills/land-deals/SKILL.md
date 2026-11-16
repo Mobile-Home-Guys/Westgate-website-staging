@@ -82,8 +82,8 @@ be changed in both places or the card drifts from the site.
 
 ## Where the leads go
 
-The pre-approval form posts to a Server Action, not to the local-resolve stub
-that `components/inquiry-form.tsx` uses. Set `LEAD_WEBHOOK_URL` and each lead
+The pre-approval form posts to a Server Action, the same as the
+other landing-page forms. Set `LEAD_WEBHOOK_URL` and each lead
 is forwarded as JSON to the CRM; without it the lead is validated and logged
 to the server console, so nothing is lost while the integration is wired up.
 

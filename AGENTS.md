@@ -31,6 +31,9 @@ lib/promotions.ts   Live offers, each with an end date. Ships empty.
 lib/blog.ts         Posts. Ships empty; `/blog` is switched off to match.
 lib/custom-pages.ts Campaign pages at `/p/<slug>` — the landing page
                     narrowed to one series. Ships empty.
+lib/booking/        Tour booking: hours in `schedule.ts`, the no-overlap
+                    slot ledger (Redis) in `store.ts`, the GHL webhook
+                    hand-off in `actions.ts`. Needs Redis env vars to go live.
 lib/legal.ts        Privacy and terms clauses. A draft to be reviewed by
                     a lawyer, not legal advice.
 lib/company.ts      What the business claims about itself — founding year,

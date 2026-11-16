@@ -220,11 +220,26 @@ height; read the token.
 
 ## The enquiry form
 
-`components/inquiry-form.tsx` validates and then resolves locally — nothing
-is sent anywhere. To wire it up, replace the `await new Promise(...)` in
-`onSubmit` with a Server Action or a POST to a CRM endpoint. The fields are
-already named sensibly: `name`, `email`, `phone`, `home`, `date`, `slot`,
-`message`, `callFirst`.
+`components/inquiry-form.tsx` is the tour booking calendar, on `/contact` and
+every listing page. It is wired and live — see `lib/booking/`:
+
+- `schedule.ts` — tour hours (Mon–Sat, 10am–4pm Eastern), tour length (60
+  min), minimum notice, how far ahead, closed dates. The only place they live.
+- `store.ts` — the slot ledger. Every booking atomically claims the
+  15-minute blocks it covers, so two bookings can never overlap, even across
+  server instances. Needs Redis over REST in production:
+  `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or Vercel's
+  `KV_REST_API_URL` + `KV_REST_API_TOKEN`). Without one, production refuses
+  to book and asks the visitor to call — it never guesses.
+  `TOUR_BOOKING_STORE=memory` is allowed only on a single long-running server.
+- `actions.ts` — the `bookTour` Server Action: validate, re-derive the slot
+  from the schedule, claim it, then POST the booking to the GoHighLevel
+  inbound webhook (`TOUR_WEBHOOK_URL` overrides the built-in one; dev
+  without it only logs). A definite GHL refusal (4xx) frees the slot; an
+  unconfirmed delivery (timeout/5xx, retried once) keeps it held.
+- `app/api/tour-slots` — live availability for the calendar.
+
+One booking per phone number at a time, eight attempts per IP per day.
 
 The landing page's two forms are different — both post to the
 `requestPreApproval` Server Action in `app/land-deals/actions.ts`, which
