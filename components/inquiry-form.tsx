@@ -108,7 +108,7 @@ function TourForm({
           )}
           <p className="mt-3 max-w-md leading-relaxed text-muted">
             {state.booked
-              ? `That time is held for you at ${site.address.street}, ${site.address.city}. We'll be in touch to confirm. Need to change it? Call ${site.phone}.`
+              ? `It's on our calendar — we'll see you at ${site.address.street}, ${site.address.city}. Need to change it? Call ${site.phone}.`
               : state.message}
           </p>
         </div>

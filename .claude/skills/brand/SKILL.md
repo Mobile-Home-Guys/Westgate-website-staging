@@ -221,22 +221,31 @@ height; read the token.
 ## The enquiry form
 
 `components/inquiry-form.tsx` is the tour booking calendar, on `/contact` and
-every listing page. It is wired and live — see `lib/booking/`:
+every listing page. Bookings go straight onto the GoHighLevel "Lot
+Appointment" calendar through the GHL Calendar API — see `lib/booking/`:
 
 - `schedule.ts` — tour hours (Mon–Sat, 10am–4pm Eastern), tour length (60
   min), minimum notice, how far ahead, closed dates. The only place they live.
+- `ghl.ts` — the GHL API client. Needs `GHL_API_TOKEN`, a Private
+  Integration token with the scopes `calendars.readonly`,
+  `calendars/events.readonly`, `calendars/events.write` and
+  `contacts.write`. `GHL_LOCATION_ID` and `GHL_CALENDAR_ID` default to
+  Westgate's sub-account and its Lot Appointment calendar. Never commit the
+  token.
+- `availability.ts` — a time is offered only if it is on the schedule, free
+  in GHL (staff hours and synced calendars), not overlapped by ANY
+  appointment or blocked time on the tour calendar (it is round robin, so GHL
+  alone would book three at once), and unclaimed in the ledger.
 - `store.ts` — the slot ledger. Every booking atomically claims the
-  15-minute blocks it covers, so two bookings can never overlap, even across
-  server instances. Needs Redis over REST in production:
+  15-minute blocks it covers, so two website bookings can never overlap, even
+  across server instances. Needs Redis over REST in production:
   `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or Vercel's
-  `KV_REST_API_URL` + `KV_REST_API_TOKEN`). Without one, production refuses
-  to book and asks the visitor to call — it never guesses.
-  `TOUR_BOOKING_STORE=memory` is allowed only on a single long-running server.
-- `actions.ts` — the `bookTour` Server Action: validate, re-derive the slot
-  from the schedule, claim it, then POST the booking to the GoHighLevel
-  inbound webhook (`TOUR_WEBHOOK_URL` overrides the built-in one; dev
-  without it only logs). A definite GHL refusal (4xx) frees the slot; an
-  unconfirmed delivery (timeout/5xx, retried once) keeps it held.
+  `KV_REST_API_URL` + `KV_REST_API_TOKEN`).
+- `actions.ts` — the `bookTour` Server Action: validate, claim in the
+  ledger, re-check GHL live, upsert the contact, create the appointment, read
+  the calendar back and cancel ours if a staff booking landed in the same
+  second. Without Redis or the GHL token it refuses and asks the visitor to
+  call — it never guesses.
 - `app/api/tour-slots` — live availability for the calendar.
 
 One booking per phone number at a time, eight attempts per IP per day.
