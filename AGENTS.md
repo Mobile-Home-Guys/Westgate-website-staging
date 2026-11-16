@@ -33,8 +33,8 @@ lib/custom-pages.ts Campaign pages at `/p/<slug>` — the landing page
                     narrowed to one series. Ships empty.
 lib/booking/        Tour booking straight into the GHL "Lot Appointment"
                     calendar via its API (`ghl.ts`). Hours in
-                    `schedule.ts`, the no-overlap slot ledger (Redis) in
-                    `store.ts`. Needs GHL_API_TOKEN and Redis env vars.
+                    `schedule.ts`; an optional Redis slot ledger in
+                    `store.ts`. Needs GHL_API_TOKEN; Redis is optional.
 lib/legal.ts        Privacy and terms clauses. A draft to be reviewed by
                     a lawyer, not legal advice.
 lib/company.ts      What the business claims about itself — founding year,

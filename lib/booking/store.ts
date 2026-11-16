@@ -21,10 +21,12 @@ import "server-only";
  *     `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`, or the
  *     `KV_REST_API_URL` + `KV_REST_API_TOKEN` pair Vercel injects. This is the
  *     production store: it is shared by every server instance.
- *   - In memory, in development, or in production only when
- *     `TOUR_BOOKING_STORE=memory` — which is safe on ONE long-running Node
- *     server and nowhere else (not on Vercel or any serverless host).
- *   - Otherwise, nothing — and booking refuses rather than guesses.
+ *   - In memory, only when `TOUR_BOOKING_STORE=memory` — safe on ONE
+ *     long-running Node server and nowhere else (not on Vercel).
+ *   - Otherwise, nothing. The ledger is OPTIONAL: without it, bookings rely
+ *     on GHL alone and the read-back in `actions.ts` (step 5), which still
+ *     never lets two overlap — it just can't stop two visitors in the same
+ *     second from both being asked to pick again.
  */
 
 export const BLOCK_MS = 15 * 60_000;
@@ -207,14 +209,12 @@ class MemoryStore implements SlotStore {
 /* Survives hot reloads in development, where modules are re-evaluated. */
 const globalStore = globalThis as unknown as { __tourMemoryStore?: MemoryStore };
 
-/** The configured store, or null when none is configured for production. */
+/** The configured ledger, or null to run on GHL alone. */
 export function getSlotStore(): SlotStore | null {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   if (url && token) return new RedisStore(url.replace(/\/+$/, ""), token);
 
-  const memoryAllowed =
-    process.env.NODE_ENV !== "production" || process.env.TOUR_BOOKING_STORE === "memory";
-  if (!memoryAllowed) return null;
+  if (process.env.TOUR_BOOKING_STORE !== "memory") return null;
   return (globalStore.__tourMemoryStore ??= new MemoryStore());
 }

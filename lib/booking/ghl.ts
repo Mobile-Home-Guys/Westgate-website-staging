@@ -95,7 +95,20 @@ export async function freeSlotStarts(start: number, end: number, timeZone: strin
   return out;
 }
 
-export type Busy = { id: string; start: number; end: number; contactId?: string; added: number };
+/** Every appointment the website makes is titled with this, so the
+    read-back can tell website bookings from ones made inside GHL. */
+export const WEBSITE_TITLE_PREFIX = "Lot tour — ";
+
+export type Busy = {
+  id: string;
+  start: number;
+  end: number;
+  contactId?: string;
+  /** When GHL created it, or NaN if it didn't say. */
+  added: number;
+  /** Made by this website (as opposed to by staff, or blocked time). */
+  website: boolean;
+};
 
 /* Cancelled and invalid appointments free their time; every other status
    — new, confirmed, showed, even no-show — means somebody had the slot. */
@@ -119,6 +132,7 @@ export async function busyIntervals(start: number, end: number): Promise<Busy[]>
     appointmentStatus?: string;
     contactId?: string;
     dateAdded?: unknown;
+    title?: string;
     deleted?: boolean;
   };
   const [events, blocked] = await Promise.all([
@@ -131,6 +145,7 @@ export async function busyIntervals(start: number, end: number): Promise<Busy[]>
     end: instant(e.endTime),
     contactId: e.contactId,
     added: instant(e.dateAdded),
+    website: typeof e.title === "string" && e.title.startsWith(WEBSITE_TITLE_PREFIX),
   });
   return [
     ...(events.events ?? []).filter(
