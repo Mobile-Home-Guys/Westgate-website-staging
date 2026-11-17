@@ -21,6 +21,7 @@ export type NavIcon =
   | "House"
   | "Info"
   | "Mail"
+  | "Calendar"
   | "Grid"
   | "Pin"
   | "Dollar"
@@ -43,7 +44,8 @@ const PRIMARY: NavItem[] = [
   { href: "/land-deals", label: "Land", page: "landDeals", icon: "Pin" },
   { href: "/financing", label: "Financing", page: "financing", icon: "Dollar" },
   { href: "/about", label: "About us", page: "about", icon: "Info" },
-  { href: "/contact", label: "Contact us", page: "contact", icon: "Mail" },
+  /* /contact is where the tour booking calendar lives, so the link says so. */
+  { href: "/contact", label: "Book a tour", page: "contact", icon: "Calendar" },
 ];
 
 /** Drawer and footer only — the bar has no room, and these are second visits. */
