@@ -177,10 +177,39 @@ through `next/font/google` and self-hosted at build time.
 
 ### Wiring up the forms
 
-`components/inquiry-form.tsx` validates properly and then resolves locally.
-Replace the `await new Promise(...)` in `onSubmit` with a Server Action or
-your CRM endpoint. Field names are already sensible: `name`, `email`, `phone`,
-`home`, `date`, `slot`, `message`, `callFirst`.
+`components/inquiry-form.tsx` is the tour booking calendar, on `/contact` and
+every listing page. Bookings go straight onto the GoHighLevel "Lot
+Appointment" calendar through the GHL Calendar API — see `lib/booking/`:
+
+- `schedule.ts` — tour hours (Mon–Sat, 10am–4pm Eastern), tour length (60
+  min), minimum notice, how far ahead, closed dates. The only place they live.
+- `ghl.ts` — the GHL API client. Needs `GHL_API_TOKEN`, a Private
+  Integration token with the scopes `calendars.readonly`,
+  `calendars/events.readonly`, `calendars/events.write` and
+  `contacts.write`. `GHL_LOCATION_ID` and `GHL_CALENDAR_ID` default to
+  Westgate's sub-account and its Lot Appointment calendar. Never commit the
+  token.
+- `availability.ts` — a time is offered only if it is on the schedule, free
+  in GHL (staff hours and synced calendars), not overlapped by ANY
+  appointment or blocked time on the tour calendar (it is round robin, so GHL
+  alone would book three at once), and unclaimed in the ledger.
+- `store.ts` — an OPTIONAL Redis slot ledger. With it, two website
+  bookings for one time are stopped before either reaches GHL (atomic claim
+  of the 15-minute blocks). Set `UPSTASH_REDIS_REST_URL` +
+  `UPSTASH_REDIS_REST_TOKEN`, or Vercel's `KV_REST_API_URL` +
+  `KV_REST_API_TOKEN`. Without it the site runs on GHL alone.
+- `actions.ts` — the `bookTour` Server Action: validate, claim in the
+  ledger (if any), re-check GHL live, upsert the contact, refuse if they
+  already have an upcoming tour, create the appointment, then read the
+  calendar back. Anything made inside GHL that overlaps wins; between
+  website bookings, the one GHL created first wins and the rest cancel
+  themselves. Without Redis that read-back is the guarantee — never two
+  bookings, though two visitors in the same second may both be asked to
+  pick again. Without the GHL token it refuses and asks the visitor to call.
+- `app/api/tour-slots` — live availability for the calendar.
+
+One upcoming tour per person (checked in GHL), eight attempts per IP per day
+(per server instance without Redis).
 
 The pre-approval form on `/land-deals` is already wired: it posts to a Server
 Action in `app/land-deals/actions.ts` which validates, honeypots and

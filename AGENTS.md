@@ -31,6 +31,10 @@ lib/promotions.ts   Live offers, each with an end date. Ships empty.
 lib/blog.ts         Posts. Ships empty; `/blog` is switched off to match.
 lib/custom-pages.ts Campaign pages at `/p/<slug>` — the landing page
                     narrowed to one series. Ships empty.
+lib/booking/        Tour booking straight into the GHL "Lot Appointment"
+                    calendar via its API (`ghl.ts`). Hours in
+                    `schedule.ts`; an optional Redis slot ledger in
+                    `store.ts`. Needs GHL_API_TOKEN; Redis is optional.
 lib/legal.ts        Privacy and terms clauses. A draft to be reviewed by
                     a lawyer, not legal advice.
 lib/company.ts      What the business claims about itself — founding year,
