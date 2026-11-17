@@ -14,6 +14,8 @@ import {
   ghlConfigured,
   GhlRejected,
   overlaps,
+  tagContact,
+  TOUR_BOOKED_TAG,
   upsertContact,
   WEBSITE_TITLE_PREFIX,
   type Busy,
@@ -328,6 +330,12 @@ export async function bookTour(_prev: TourState, formData: FormData): Promise<To
     .filter(Boolean)
     .join("\n");
   await addContactNote(contactId, note).catch((e) => console.error("[tour] contact note failed", e));
+
+  /* Last, so a workflow triggered by it finds the appointment and the note
+     already in place. The booking stands even if tagging fails. */
+  await tagContact(contactId, [TOUR_BOOKED_TAG]).catch((e) =>
+    console.error(`[tour] TAG FAILED — add "${TOUR_BOOKED_TAG}" to contact ${contactId} by hand`, e),
+  );
 
   return { status: "ok", message: `You're booked for ${label}.`, booked: { start: slot.start, label } };
 }
