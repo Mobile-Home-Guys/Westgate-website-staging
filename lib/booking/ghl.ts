@@ -160,6 +160,14 @@ export async function busyIntervals(start: number, end: number): Promise<Busy[]>
 export const overlaps = (a: { start: number; end: number }, b: { start: number; end: number }) =>
   a.start < b.end && b.start < a.end;
 
+/**
+ * Added to the contact only once their appointment exists and has survived
+ * the overlap check — never at contact creation, because a booking can still
+ * fail after that. A GHL workflow can therefore trigger on this tag and
+ * trust that a real, confirmed tour is behind it.
+ */
+export const TOUR_BOOKED_TAG = "website tour booking";
+
 /** Creates or updates the lead (GHL de-duplicates on phone/email). */
 export async function upsertContact(c: {
   firstName: string;
@@ -179,7 +187,7 @@ export async function upsertContact(c: {
       phone: c.phone,
       email: c.email || undefined,
       source: "Website tour booking",
-      tags: ["website tour booking"],
+      // No tag here — see TOUR_BOOKED_TAG.
     },
   });
   const id = res.contact?.id;
@@ -221,6 +229,14 @@ export async function cancelAppointment(id: string) {
   await call(`/calendars/events/appointments/${encodeURIComponent(id)}`, {
     method: "PUT",
     body: { appointmentStatus: "cancelled" },
+  });
+}
+
+export async function tagContact(contactId: string, tags: string[]) {
+  await call(`/contacts/${encodeURIComponent(contactId)}/tags`, {
+    method: "POST",
+    version: "2021-07-28",
+    body: { tags },
   });
 }
 
